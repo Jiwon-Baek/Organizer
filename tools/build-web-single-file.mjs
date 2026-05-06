@@ -44,10 +44,6 @@ async function inlineAssets(source) {
     "assets/fonts/NanumGothic-Bold.ttf",
     "assets/fonts/Freesentation-4Regular.ttf",
     "assets/fonts/Freesentation-7Bold.ttf",
-    "sample/samplePDF_1.pdf",
-    "sample/samplePDF_2.pdf",
-    "sample/samplePDF_3.pdf",
-    "sample/samplePDF_4.pdf",
   ];
 
   let bundled = source;
