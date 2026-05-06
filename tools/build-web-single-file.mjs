@@ -77,7 +77,11 @@ async function build() {
     <title>Organizer Web Test</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <div style="font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;margin:24px;line-height:1.5;color:#1f1d1a;">
+        Organizer is loading. If this message stays visible, open this page in a full browser such as Safari or use the GitHub Pages URL.
+      </div>
+    </div>
     <script>
 ${script}
     </script>
