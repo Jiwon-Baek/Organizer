@@ -1,0 +1,256 @@
+function now() {
+  return new Date().toISOString();
+}
+
+const browserStorageKey = "organizer.web.appData.v1";
+
+export const seedData = {
+  version: "0.2.0",
+  settings: {
+    language: "ko",
+    theme: "light",
+    storage_mode: "json_file",
+    ui_font_preset: "regular",
+  },
+  notebooks: [
+    {
+      id: "notebook_consult",
+      title: "상담자료",
+      icon: "💬",
+      chapters: [
+        {
+          id: "chapter_consult_2026",
+          title: "2026",
+          icon: "📅",
+          notes: [
+            {
+              id: "note_consult_kim",
+              title: "김철수 환자",
+              description: "초기 상담 자료와 추적 메모",
+              tags: ["상담", "초기면담", "2026"],
+              created_at: "2026-04-21T09:30:00",
+              updated_at: "2026-04-24T08:15:00",
+              last_opened_at: "2026-04-24T08:40:00",
+              view_count: 6,
+              note_body:
+                "첫 방문 배경과 수면 패턴을 다시 확인할 필요가 있다. 다음 면담에서 보호자 인터뷰 가능 여부를 검토.",
+              pdfs: [
+                {
+                  id: "pdf_consult_1",
+                  title: "초기 상담 PDF",
+                  original_filename: "samplePDF_1.pdf",
+                  path: "./sample/samplePDF_1.pdf",
+                  added_at: "2026-04-21T09:30:00",
+                  last_opened_at: "2026-04-24T08:40:00",
+                  view_count: 4,
+                },
+              ],
+              pdf_comments: [
+                {
+                  id: "comment_consult_1",
+                  pdf_id: "pdf_consult_1",
+                  page: 1,
+                  comment: "도입부 설명은 보호자 진술과 비교 검토.",
+                  created_at: "2026-04-24T08:20:00",
+                  updated_at: "2026-04-24T08:20:00",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "notebook_research",
+      title: "연구자료",
+      icon: "🔬",
+      chapters: [
+        {
+          id: "chapter_research_adhd",
+          title: "ADHD",
+          icon: "🧠",
+          notes: [
+            {
+              id: "note_research_review",
+              title: "최신논문리뷰",
+              description: "발표용으로 핵심 포인트만 추린 리뷰 노트",
+              tags: ["연구", "ADHD", "논문리뷰"],
+              created_at: "2026-04-18T11:00:00",
+              updated_at: "2026-04-24T10:05:00",
+              last_opened_at: "2026-04-24T10:12:00",
+              view_count: 9,
+              note_body:
+                "결과 해석 파트에서 effect size 비교 슬라이드를 추가하면 발표 흐름이 좋아질 것 같다.",
+              pdfs: [
+                {
+                  id: "pdf_research_1",
+                  title: "ADHD 리뷰 논문",
+                  original_filename: "samplePDF_2.pdf",
+                  path: "./sample/samplePDF_2.pdf",
+                  added_at: "2026-04-18T11:00:00",
+                  last_opened_at: "2026-04-24T10:12:00",
+                  view_count: 5,
+                },
+                {
+                  id: "pdf_research_2",
+                  title: "보조 자료",
+                  original_filename: "samplePDF_3.pdf",
+                  path: "./sample/samplePDF_3.pdf",
+                  added_at: "2026-04-19T14:00:00",
+                  last_opened_at: "2026-04-23T16:20:00",
+                  view_count: 2,
+                },
+              ],
+              pdf_comments: [
+                {
+                  id: "comment_research_1",
+                  pdf_id: "pdf_research_1",
+                  page: 2,
+                  comment: "이 문단은 강의 자료로 재가공 가능.",
+                  created_at: "2026-04-24T10:02:00",
+                  updated_at: "2026-04-24T10:02:00",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: "chapter_research_depression",
+          title: "우울증",
+          icon: "💊",
+          notes: [
+            {
+              id: "note_research_medication",
+              title: "약물치료 논문",
+              description: "치료 비교표 초안",
+              tags: ["연구", "우울증", "약물치료"],
+              created_at: "2026-04-14T15:20:00",
+              updated_at: "2026-04-22T18:15:00",
+              last_opened_at: "2026-04-22T18:16:00",
+              view_count: 3,
+              note_body:
+                "복용 순응도 관련 수치를 요약 표로 정리해야 한다.",
+              pdfs: [
+                {
+                  id: "pdf_research_3",
+                  title: "약물치료 메타분석",
+                  original_filename: "samplePDF_4.pdf",
+                  path: "./sample/samplePDF_4.pdf",
+                  added_at: "2026-04-14T15:20:00",
+                  last_opened_at: "2026-04-22T18:16:00",
+                  view_count: 3,
+                },
+              ],
+              pdf_comments: [],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "notebook_lecture",
+      title: "강의록",
+      icon: "🎓",
+      chapters: [
+        {
+          id: "chapter_lecture_2026",
+          title: "2026",
+          icon: "📋",
+          notes: [
+            {
+              id: "note_lecture_week1",
+              title: "정신병리학 1주차",
+              description: "도입 강의용 자료",
+              tags: ["강의", "2026", "정신병리학"],
+              created_at: "2026-04-10T13:00:00",
+              updated_at: "2026-04-23T09:00:00",
+              last_opened_at: "2026-04-24T07:50:00",
+              view_count: 7,
+              note_body:
+                "강의 첫 10분은 사례 중심으로 재배치. 용어 정의 슬라이드는 뒤로 이동.",
+              pdfs: [
+                {
+                  id: "pdf_lecture_1",
+                  title: "1주차 강의 PDF",
+                  original_filename: "samplePDF_1.pdf",
+                  path: "./sample/samplePDF_1.pdf",
+                  added_at: "2026-04-10T13:00:00",
+                  last_opened_at: "2026-04-24T07:50:00",
+                  view_count: 4,
+                },
+              ],
+              pdf_comments: [],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+export function cloneSeed() {
+  return JSON.parse(JSON.stringify(seedData));
+}
+
+export function normalizeDataShape(rawData) {
+  const base = cloneSeed();
+  const data = rawData && typeof rawData === "object" ? rawData : {};
+
+  return {
+    ...base,
+    ...data,
+    settings: {
+      ...base.settings,
+      ...(data.settings || {}),
+      storage_mode: "json_file",
+    },
+    notebooks: Array.isArray(data.notebooks) ? data.notebooks : base.notebooks,
+  };
+}
+
+export async function loadAppData() {
+  if (!window.organizerAPI?.loadData) {
+    try {
+      const stored = window.localStorage?.getItem(browserStorageKey);
+      return normalizeDataShape(stored ? JSON.parse(stored) : cloneSeed());
+    } catch {
+      return normalizeDataShape(cloneSeed());
+    }
+  }
+
+  const loaded = await window.organizerAPI.loadData();
+  return normalizeDataShape(loaded);
+}
+
+export async function saveAppData(data) {
+  const payload = normalizeDataShape({
+    ...data,
+    last_saved_at: now(),
+  });
+
+  if (window.organizerAPI?.saveData) {
+    await window.organizerAPI.saveData(payload);
+  } else {
+    window.localStorage?.setItem(browserStorageKey, JSON.stringify(payload));
+  }
+
+  return payload;
+}
+
+export async function resetAppData() {
+  const reset = normalizeDataShape(cloneSeed());
+  if (window.organizerAPI?.resetData) {
+    await window.organizerAPI.resetData(reset);
+  } else {
+    window.localStorage?.setItem(browserStorageKey, JSON.stringify(reset));
+  }
+  return reset;
+}
+
+export function createId(prefix) {
+  return `${prefix}_${Math.random().toString(36).slice(2, 10)}`;
+}
+
+export function timestamp() {
+  return now();
+}

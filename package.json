@@ -1,0 +1,39 @@
+{
+  "name": "organizer",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Offline Organizer Electron prototype",
+  "type": "module",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist:win": "electron-builder --win portable",
+    "build:web-single": "node tools/build-web-single-file.mjs"
+  },
+  "devDependencies": {
+    "electron": "^37.2.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.eunyoungkim.organizer",
+    "productName": "Organizer",
+    "directories": {
+      "output": "x64/dist"
+    },
+    "files": [
+      "index.html",
+      "assets/**/*",
+      "data/**/*",
+      "sample/**/*",
+      "src/**/*",
+      "*.js",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "portable"
+      ],
+      "artifactName": "Organizer-${version}.exe"
+    }
+  }
+}
