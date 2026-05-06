@@ -3,15 +3,18 @@ import { t } from "./i18n.js";
 import {
   createId,
   loadAppData,
+  resolveBrowserPdfUrl,
   resetAppData,
   saveAppData,
+  saveBrowserPdf,
   timestamp,
 } from "./storage.js";
 import { buildGroupedSearchResults } from "./search.js";
 import { computeDashboard, flattenNotes } from "./dashboard.js";
-import { createViewerState, getActivePdf, renderPdfFrame, goToPage } from "./pdf_viewer.js";
+import { createViewerState, getActivePdf, renderPdfFrame, goToPage, registerPdfUrlResolver } from "./pdf_viewer.js";
 
 applyTheme();
+registerPdfUrlResolver(resolveBrowserPdfUrl);
 
 const NOTEBOOK_ICONS = ["💬", "📚", "🧪", "🎓", "📋", "🏥", "📝", "🔬", "📖", "🗂️"];
 const CHAPTER_ICONS  = ["📅", "🗂️", "📁", "📂", "🗓️", "🔖", "🧠", "💊", "📌", "🔍"];
@@ -192,12 +195,7 @@ function pickPdfInBrowser() {
         resolve(null);
         return;
       }
-      const reader = new FileReader();
-      reader.addEventListener("load", () => {
-        resolve({ name: file.name, dataUrl: reader.result });
-      });
-      reader.addEventListener("error", () => resolve(null));
-      reader.readAsDataURL(file);
+      resolve({ name: file.name, file });
     }, { once: true });
     document.body.appendChild(input);
     input.click();
@@ -614,6 +612,15 @@ document.addEventListener("click", (e) => {
   if (ctxMenuEl && !ctxMenuEl.contains(e.target)) removeCtxMenu();
 });
 
+window.addEventListener("organizer:pdf-url-ready", () => {
+  render();
+});
+
+window.addEventListener("organizer:pdf-url-error", (event) => {
+  saveState.error = event.detail || "PDF 파일을 불러오지 못했습니다.";
+  render();
+});
+
 // ── Action handler ────────────────────────────────────────────────
 async function handleAction(e) {
   const el = e.currentTarget;
@@ -721,7 +728,17 @@ async function handleAction(e) {
       const picked = await pickPdfInBrowser();
       if (!picked) return;
       filename = picked.name;
-      pdfPath = picked.dataUrl;
+      const pdfId = createId("pdf");
+      pdfPath = await saveBrowserPdf(pdfId, picked.file);
+      match.note.pdfs.push({
+        id: pdfId,
+        title: filename.replace(/\.pdf$/i, ""),
+        original_filename: filename,
+        path: pdfPath,
+        added_at: timestamp(), last_opened_at: timestamp(), view_count: 0,
+      });
+      match.note.updated_at = timestamp();
+      await persistData(); return;
     }
     match.note.pdfs.push({
       id: createId("pdf"),
